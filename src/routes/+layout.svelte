@@ -1,37 +1,22 @@
-<script lang="ts">
-    import { onMount } from "svelte";
-    import { writable } from "svelte/store";
-    import bookStore from "$lib/stores/bookStore";
-    import BookItem from "$lib/components/BookItem.svelte";
-    import type { Book } from "$lib/stores/bookStore";
 
+<nav>
+    <a href="/">Home</a>
+    <a href="/add-book">Add Book</a>
+</nav>
 
-let searchQuery = writable ('');
-let filteredBooks: Book[] = [];
+<slot />
 
-onMount(()=> {
-    bookStore.subscribe(value => {
-        filteredBooks = value;
-    })
-})
+<style>
 
-$: searchQuery.subscribe(query => {
-    bookStore.subscribe(value => {
-        filteredBooks = value.filter(b => b.title.toLocaleLowerCase().includes(query.toLowerCase()) || b.author.toLowerCase().includes(query.toLowerCase()))
-    })
-})
-
-</script>
-
-<main>
-    <h2>Search books</h2>
-    <input type="text" bind:value={$searchQuery} placeholder="Search by title or author"/>
-    {#if $searchQuery && filteredBooks.length === 0}
-    <p>No books found</p>
-    {/if}
-
-    {#each filteredBooks as book (book.title)}
-    <BookItem {...book} />
-    {/each}
-    <slot></slot>
-</main>
+    nav {
+        margin-bottom: 20px;
+    }
+    a {
+        margin-right: 10px;
+        text-decoration: none;
+        color: #007BFF;
+    }
+    a:hover {
+        color: #0056b3;
+    }
+</style>

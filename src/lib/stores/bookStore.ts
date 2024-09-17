@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-interface Book {
+export interface Book {
 	title: string;
 	author: string;
 	year: number;
@@ -8,16 +8,16 @@ interface Book {
 	summary: string;
 }
 
-const books = writable<Book[]>([
+export const books = writable<Book[]>([
 	{
-		title: 'Book 1',
+		title: 'book1',
 		author: 'Author 1',
 		year: 2000,
 		themes: ['Theme 1', 'Theme 2'],
 		summary: 'Summary of book 1.',
 	},
 	{
-		title: 'Book 2',
+		title: 'book2',
 		author: 'Author 2',
 		year: 2005,
 		themes: ['Theme 3', 'Theme 4'],
@@ -25,4 +25,18 @@ const books = writable<Book[]>([
 	},
 ]);
 
-export default books;
+
+export function addNewBook(newBook : Book){
+    books.update((currentBooks) => {
+        return [
+            ...currentBooks,
+            newBook
+        ]
+    });
+}
+
+export function deleteBook(toDelete : Book){
+    books.update((currentBooks) => {
+        return currentBooks.filter((b) => b.title !== toDelete.title)
+    })
+}

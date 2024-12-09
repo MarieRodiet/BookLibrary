@@ -1,5 +1,5 @@
 <script>
-    import { books, addNewBook } from "$lib/stores/bookStore";
+    import { addNewBook } from "$lib/stores/bookStore";
     import { goto } from '$app/navigation';
 
     let title = "";

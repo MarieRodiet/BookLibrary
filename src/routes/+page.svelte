@@ -1,20 +1,17 @@
 <script lang="ts">
     import { books, deleteBook, type Book} from '$lib/stores/bookStore';
-    import { goto } from '$app/navigation';
+
 	import BookItem from '@mgas/lib/components/BookItem.svelte';
     import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
+    import { faEye } from '@fortawesome/free-regular-svg-icons';
     import { FontAwesomeIcon} from '@fortawesome/svelte-fontawesome';
 
-    const generateSlug = (title: string): string => title.toLowerCase().replace(/\s+/g, '-');
-
-    const navigateToBook = (slug: string) => {
-        goto(`/book/${slug}`);
-    };
 
     let selectedBook : Book | null = null;
     const selectBook = (book : Book) => {
         selectedBook = book;
     }
+
 </script>
 
 <main>
@@ -46,6 +43,9 @@
                 <button on:click={() => deleteBook(book)}>
                     <FontAwesomeIcon icon={faTrashCan} />
                 </button>
+                <a href="/book/{book.title}">
+                    <FontAwesomeIcon icon={faEye} />
+                </a>
             </td>
         </tr>
     {/each}

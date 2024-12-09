@@ -10,6 +10,10 @@
 
     nav {
         margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: bisque;
+        width: 200px;
     }
     a {
         margin-right: 10px;

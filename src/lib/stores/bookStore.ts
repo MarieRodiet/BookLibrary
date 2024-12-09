@@ -40,3 +40,9 @@ export function deleteBook(toDelete : Book){
         return currentBooks.filter((b) => b.title !== toDelete.title)
     })
 }
+
+export function viewBook(title: String){
+    return books.subscribe((books) => {
+        books.find(b => b.title === title) || null;
+    })
+}
